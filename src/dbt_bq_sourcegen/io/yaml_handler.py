@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 import ruamel.yaml
-from ruamel.yaml.scalarstring import LiteralScalarString, DoubleQuotedScalarString
+from ruamel.yaml.scalarstring import DoubleQuotedScalarString, LiteralScalarString
 
 from ..types.dbt import DbtColumn, DbtSource, DbtSourceFile, DbtTable
 
