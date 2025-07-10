@@ -1,11 +1,12 @@
 [project]
 name = "dbt-bq-sourcegen"
 version = "0.1.0"
-description = "Add your description here"
+description = "Create or update BigQuery source YAML for dbt"
 readme = "README.md"
 authors = [{ name = "K-Oxon", email = "ko1011qfp@gmail.com" }]
 requires-python = ">=3.11"
 dependencies = [
+    "click>=8.0",
     "google-cloud-bigquery>=3.34.0",
     "loguru>=0.7.3",
     "pydantic>=2.11.7",
@@ -13,7 +14,7 @@ dependencies = [
 ]
 
 [project.scripts]
-dbt-bq-sourcegen = "dbt_bq_sourcegen.cli:main"
+dbt-bq-sourcegen = "dbt_bq_sourcegen.cli:cli"
 
 [build-system]
 requires = ["hatchling"]
@@ -26,4 +27,13 @@ packages = ["src/dbt_bq_sourcegen"]
 path = "src/dbt_bq_sourcegen/__init__.py"
 
 [dependency-groups]
-dev = ["ruff>=0.12.2"]
+dev = [
+    "ruff>=0.12.2",
+ "pytest>=7.0",
+ "pytest-cov>=4.0",
+ "pyright>=1.1.402",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
