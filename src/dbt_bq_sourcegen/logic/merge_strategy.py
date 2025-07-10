@@ -32,12 +32,16 @@ def merge_columns(
         if bq_col.name in yaml_column_map:
             # Update existing column
             yaml_col = yaml_column_map[bq_col.name]
+            # Update only primary keys (name, data_type, description)
+            # Preserve all other fields from YAML
             merged_col = DbtColumn(
                 name=bq_col.name,
                 data_type=bq_col.field_type,
                 description=yaml_col.description or bq_col.description or "",
                 meta=yaml_col.meta,
                 tests=yaml_col.tests,
+                quote=yaml_col.quote,
+                tags=yaml_col.tags,
             )
         else:
             # Add new column
@@ -83,6 +87,8 @@ def merge_table(
     # Keep existing description if present, otherwise use BigQuery's
     description = yaml_table.description or bq_table.description or ""
 
+    # Update only primary keys (name, description)
+    # Preserve all other fields from YAML
     return DbtTable(
         name=yaml_table.name,
         identifier=yaml_table.identifier,
@@ -90,6 +96,11 @@ def merge_table(
         columns=merged_columns,
         meta=yaml_table.meta,
         tests=yaml_table.tests,
+        loaded_at_field=yaml_table.loaded_at_field,
+        tags=yaml_table.tags,
+        config=yaml_table.config,
+        quoting=yaml_table.quoting,
+        external=yaml_table.external,
     )
 
 
@@ -121,7 +132,7 @@ def merge_sources(
         yaml_source = DbtSource(
             name=source_name,
             database=project_id,
-            schema_name=dataset_id,
+            schema=dataset_id,
             tables=[],
         )
 
@@ -142,13 +153,20 @@ def merge_sources(
             if yaml_table.name not in bq_table_map:
                 merged_tables.append(yaml_table)
 
+    # Preserve all non-primary fields from YAML source
     return DbtSource(
         name=yaml_source.name,
         database=yaml_source.database or project_id,
-        schema_name=yaml_source.schema_name or dataset_id,
+        schema=yaml_source.schema_name or dataset_id,
         description=yaml_source.description,
         tables=merged_tables,
         meta=yaml_source.meta,
+        loader=yaml_source.loader,
+        loaded_at_field=yaml_source.loaded_at_field,
+        tags=yaml_source.tags,
+        config=yaml_source.config,
+        quoting=yaml_source.quoting,
+        overrides=yaml_source.overrides,
     )
 
 

@@ -13,8 +13,10 @@ class DbtColumn(BaseModel):
     description: Optional[str] = ""
     meta: Optional[Dict[str, Any]] = None
     tests: Optional[List[Any]] = None
+    quote: Optional[bool] = None
+    tags: Optional[List[str]] = None
 
-    model_config = ConfigDict(frozen=True)
+    model_config = ConfigDict(frozen=True, extra="allow")
 
 
 class DbtTable(BaseModel):
@@ -26,8 +28,13 @@ class DbtTable(BaseModel):
     columns: Optional[List[DbtColumn]] = Field(default_factory=list)
     meta: Optional[Dict[str, Any]] = None
     tests: Optional[List[Any]] = None
+    loaded_at_field: Optional[str] = None
+    tags: Optional[List[str]] = None
+    config: Optional[Dict[str, Any]] = None
+    quoting: Optional[Dict[str, bool]] = None
+    external: Optional[Dict[str, Any]] = None
 
-    model_config = ConfigDict(frozen=True)
+    model_config = ConfigDict(frozen=True, extra="allow")
 
 
 class DbtSource(BaseModel):
@@ -39,8 +46,14 @@ class DbtSource(BaseModel):
     description: Optional[str] = ""
     tables: List[DbtTable] = Field(default_factory=list)
     meta: Optional[Dict[str, Any]] = None
+    loader: Optional[str] = None
+    loaded_at_field: Optional[str] = None
+    tags: Optional[List[str]] = None
+    config: Optional[Dict[str, Any]] = None
+    quoting: Optional[Dict[str, bool]] = None
+    overrides: Optional[str] = None
 
-    model_config = ConfigDict(frozen=True, populate_by_name=True)
+    model_config = ConfigDict(frozen=True, populate_by_name=True, extra="allow")
 
 
 class DbtSourceFile(BaseModel):
@@ -49,4 +62,4 @@ class DbtSourceFile(BaseModel):
     version: int = 2
     sources: List[DbtSource] = Field(default_factory=list)
 
-    model_config = ConfigDict(frozen=True)
+    model_config = ConfigDict(frozen=True, extra="allow")
