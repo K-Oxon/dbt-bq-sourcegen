@@ -7,6 +7,7 @@ from pathlib import Path
 
 import click
 
+from . import __version__
 from .io.bigquery import BigQueryClient
 from .io.yaml_handler import YamlHandler
 from .logic.merge_strategy import merge_source_file
@@ -21,6 +22,7 @@ logger = logging.getLogger(__name__)
 
 
 @click.group()
+@click.version_option(version=__version__, prog_name="dbt-bq-sourcegen")
 def cli():
     """dbt-bq-sourcegen: Create or update BigQuery source YAML for dbt"""
     pass
@@ -36,18 +38,12 @@ def cli():
 )
 @click.option("--table-pattern", help="Table name pattern (e.g., 'stg_*')")
 @click.option("--exclude", help="Exclude tables containing this string")
-@click.option("--sync-columns", is_flag=True, help="Sync column information")
-@click.option(
-    "--remove-deleted", is_flag=True, help="Remove tables/columns not in BigQuery"
-)
 def apply(
     project_id: str,
     schema: str,
     output: str,
     table_pattern: str,
     exclude: str,
-    sync_columns: bool,
-    remove_deleted: bool,
 ):
     """Create or update source YAML (auto-detects if file exists)"""
     output_path = Path(output)
@@ -84,8 +80,6 @@ def apply(
             source_name,
             project_id,
             schema,
-            remove_deleted_tables=remove_deleted,
-            remove_deleted_columns=remove_deleted and sync_columns,
         )
 
         # Write updated file

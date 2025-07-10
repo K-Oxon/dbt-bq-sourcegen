@@ -69,7 +69,7 @@ def calculate_table_diff(
     if not bq_table and not yaml_table:
         raise ValueError("Both tables cannot be None")
 
-    table_name = yaml_table.name if yaml_table else bq_table.table_id
+    table_name = yaml_table.name if yaml_table else bq_table.table_id  # type: ignore[union-attr]
 
     # Check existence
     exists_in_bigquery = bq_table is not None

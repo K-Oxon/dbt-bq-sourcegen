@@ -40,7 +40,7 @@ def build_table_from_bigquery(bq_table: BigQueryTable) -> DbtTable:
 
 def build_source_from_bigquery(
     bq_dataset: BigQueryDataset,
-    source_name: str = None,
+    source_name: str | None = None,
 ) -> DbtSource:
     """Build a dbt source from a BigQuery dataset.
 
@@ -64,7 +64,7 @@ def build_source_from_bigquery(
 
 def build_source_file_from_bigquery(
     bq_dataset: BigQueryDataset,
-    source_name: str = None,
+    source_name: str | None = None,
 ) -> DbtSourceFile:
     """Build a complete dbt source file from a BigQuery dataset.
 

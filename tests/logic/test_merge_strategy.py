@@ -48,22 +48,23 @@ class TestMergeColumns:
         assert merged[0].description == "ID field"  # Keep existing description
 
     def test_merge_columns_remove_deleted(self):
-        """Test removing columns not in BigQuery."""
+        """Test that YAML-only columns are preserved (default behavior)."""
         bq_columns = [
             BigQueryColumn(name="id", field_type="INT64"),
         ]
         yaml_columns = [
             DbtColumn(name="id", data_type="INT64"),
-            DbtColumn(name="deleted_col", data_type="STRING"),
+            DbtColumn(name="yaml_only_col", data_type="STRING"),
         ]
 
-        merged = merge_columns(bq_columns, yaml_columns, remove_deleted=True)
+        merged = merge_columns(bq_columns, yaml_columns)
 
-        assert len(merged) == 1
+        assert len(merged) == 2
         assert merged[0].name == "id"
+        assert merged[1].name == "yaml_only_col"
 
     def test_merge_columns_keep_deleted(self):
-        """Test keeping columns not in BigQuery."""
+        """Test keeping columns not in BigQuery (same as default behavior)."""
         bq_columns = [
             BigQueryColumn(name="id", field_type="INT64"),
         ]
@@ -72,7 +73,7 @@ class TestMergeColumns:
             DbtColumn(name="yaml_only", data_type="STRING"),
         ]
 
-        merged = merge_columns(bq_columns, yaml_columns, remove_deleted=False)
+        merged = merge_columns(bq_columns, yaml_columns)
 
         assert len(merged) == 2
         assert merged[0].name == "id"
@@ -180,7 +181,6 @@ class TestMergeSources:
             "test_source",
             "test_project",
             "test_dataset",
-            remove_deleted_tables=False,
         )
 
         assert len(merged.tables) == 3  # table1, table2, table3
