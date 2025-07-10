@@ -1,13 +1,11 @@
 """BigQuery client for fetching schema information."""
 
-import logging
 from typing import Optional
 
 from google.cloud import bigquery
+from loguru import logger
 
 from ..types.bigquery import BigQueryColumn, BigQueryDataset, BigQueryTable
-
-logger = logging.getLogger(__name__)
 
 
 class BigQueryClient:

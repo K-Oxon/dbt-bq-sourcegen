@@ -2,10 +2,10 @@
 CLI interface for dbt-bq-sourcegen
 """
 
-import logging
 from pathlib import Path
 
 import click
+from loguru import logger
 
 from . import __version__
 from .io.bigquery import BigQueryClient
@@ -13,18 +13,11 @@ from .io.yaml_handler import YamlHandler
 from .logic.merge_strategy import merge_source_file
 from .logic.source_builder import build_source_file_from_bigquery
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-)
-logger = logging.getLogger(__name__)
-
 
 @click.group()
 @click.version_option(version=__version__, prog_name="dbt-bq-sourcegen")
 def cli():
-    """dbt-bq-sourcegen: Create or update BigQuery source YAML for dbt"""
+    """dbt-bq-sourcegen: Create or update dbt source YAML from BigQuery"""
     pass
 
 

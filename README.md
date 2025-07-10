@@ -1,6 +1,15 @@
 # dbt-bq-sourcegen
 
-Create or update BigQuery source YAML for dbt.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+
+Create or update dbt source YAML from BigQuery.
+
+## Overview
+
+`dbt-bq-sourcegen` automatically generates dbt source YAML files from BigQuery schemas, preserving existing configurations during updates.
+It supports table filtering with wildcard patterns and maintains YAML formatting/comments.
+This tool streamlines the process of keeping dbt source definitions in sync with your BigQuery datasets.
 
 ## Installation
 

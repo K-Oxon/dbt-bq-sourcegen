@@ -1,15 +1,13 @@
 """YAML file handler for dbt source files."""
 
-import logging
 from pathlib import Path
 from typing import Any, Dict, Optional
 
 import ruamel.yaml
+from loguru import logger
 from ruamel.yaml.scalarstring import DoubleQuotedScalarString, LiteralScalarString
 
 from ..types.dbt import DbtColumn, DbtSource, DbtSourceFile, DbtTable
-
-logger = logging.getLogger(__name__)
 
 
 class YamlHandler:
