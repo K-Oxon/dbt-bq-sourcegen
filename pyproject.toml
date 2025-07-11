@@ -5,6 +5,17 @@ description = "Create or update dbt source YAML from BigQuery"
 readme = "README.md"
 authors = [{ name = "K-Oxon", email = "ko1011qfp@gmail.com" }]
 requires-python = ">=3.11"
+keywords = ["dbt", "bigquery", "yaml", "source"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
 dependencies = [
     "click>=8.0",
     "google-cloud-bigquery>=3.34.0",
@@ -12,6 +23,11 @@ dependencies = [
     "pydantic>=2.11.7",
     "ruamel-yaml>=0.18.14",
 ]
+
+[project.urls]
+Homepage = "https://github.com/K-Oxon/dbt-bq-sourcegen"
+Repository = "https://github.com/K-Oxon/dbt-bq-sourcegen"
+Issues = "https://github.com/K-Oxon/dbt-bq-sourcegen/issues"
 
 [project.scripts]
 dbt-bq-sourcegen = "dbt_bq_sourcegen.cli:cli"
