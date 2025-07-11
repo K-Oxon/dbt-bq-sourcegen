@@ -14,7 +14,7 @@ This tool streamlines the process of keeping dbt source definitions in sync with
 ## Installation
 
 ```bash
-pip install git+https://github.com/K-Oxon/dbt-bq-sourcegen.git
+pip install dbt-bq-sourcegen
 ```
 
 ## Usage

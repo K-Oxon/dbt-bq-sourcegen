@@ -14,7 +14,7 @@ BigQueryからdbtのsource YAMLを作成・更新します。
 ## インストール
 
 ```bash
-pip install git+https://github.com/K-Oxon/dbt-bq-sourcegen.git
+pip install dbt-bq-sourcegen
 ```
 
 ## 使い方
